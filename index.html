@@ -1,0 +1,425 @@
+Perfect! Here’s your updated landing page:
+
+- The "Join the Waitlist" button and the form "Get on the List" button will both take users directly to your Google Form ([https://forms.gle/orFhb9TKLPhXpNrY8](https://forms.gle/orFhb9TKLPhXpNrY8)).
+- The email input field is now just a button styled to match the rest of the site.
+- All previous design tweaks (centered text, more floating icons, etc.) are preserved.
+
+```html name=index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>✉️ JoyfulSoul Mail — Whimsical Snail Mail Subscription</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Handwritten and soft fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Shadows+Into+Light&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blush: #ffd6e0;
+      --cream: #fdf6e3;
+      --lavender: #e6e6fa;
+      --sage: #c5e4c5;
+      --ink: #383838;
+      --vintage: #f8efe7;
+      --accent: #d6aec8;
+    }
+    html, body {
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
+      background: repeating-linear-gradient(135deg, var(--cream), var(--blush) 60%, var(--lavender) 80%, var(--cream) 100%);
+      font-family: 'DM Serif Display', serif;
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+    body {
+      background-image:
+        url('https://www.transparenttextures.com/patterns/old-mathematics.png'),
+        url('https://www.transparenttextures.com/patterns/cream-paper.png');
+      background-blend-mode: lighten;
+    }
+    .paper {
+      background: var(--cream);
+      border-radius: 24px 8px 32px 12px/18px 20px 24px 30px;
+      box-shadow: 0 6px 36px rgba(179, 143, 155, 0.09), 0 1.5px 0 0 #e5c7b2 inset;
+      padding: 2rem 1.5rem;
+      margin: 2rem auto;
+      max-width: 500px;
+      position: relative;
+      text-align: center;
+    }
+    .washi {
+      position: absolute;
+      width: 70px;
+      height: 30px;
+      left: 30px;
+      top: -18px;
+      background: var(--accent);
+      opacity: 0.55;
+      border-radius: 8px 18px 10px 8px;
+      transform: rotate(-7deg);
+      box-shadow: 0 2px 8px #d6aec8aa;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .floating-icons {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0; top: 0;
+      pointer-events: none;
+      z-index: 2;
+      font-size: 1.7em;
+    }
+    .icon1 { position: absolute; left: 12px; top: 28px; transform: rotate(-8deg);}
+    .icon2 { position: absolute; right: 30px; top: 18px; }
+    .icon3 { position: absolute; left: 22px; bottom: 18px; }
+    .icon4 { position: absolute; right: 40px; bottom: 14px; }
+    .icon5 { position: absolute; left: 40%; top: -24px; font-size: 1.3em;}
+    .icon6 { position: absolute; right: 18%; bottom: -18px; font-size: 1.15em;}
+    /* Doodles/Ephemera */
+    .doodle {
+      font-family: 'Indie Flower', cursive;
+      color: #dcb6c9;
+      font-size: 2.2em;
+      position: absolute;
+      pointer-events: none;
+    }
+    /* Hero Collage */
+    .hero-bg {
+      background: url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80');
+      background-size: cover;
+      background-position: top center;
+      filter: grayscale(0.08) brightness(1.15) contrast(1.01);
+      border-radius: 24px 22px 30px 18px/20px 22px 30px 32px;
+      box-shadow: 0 8px 60px #b78aa740;
+      min-height: 320px;
+      position: relative;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .scrap-title {
+      font-family: 'Shadows Into Light', cursive;
+      font-size: 2.8rem;
+      letter-spacing: 1.5px;
+      color: #b46674;
+      background: rgba(255,255,255,0.74);
+      display: inline-block;
+      padding: 0.6rem 2rem;
+      border-radius: 24px 16px 28px 16px/12px 36px 16px 20px;
+      margin: 2rem 0 0.5rem 0;
+      box-shadow: 0 2px 18px #ffd6e099;
+      border: 2.5px dashed #c5e4c5;
+    }
+    .scrap-subtitle {
+      font-family: 'Indie Flower', cursive;
+      font-size: 1.3rem;
+      color: #6d4b5d;
+      margin-bottom: 1.2rem;
+      background: rgba(255,255,255,0.78);
+      display: inline-block;
+      padding: 0.3rem 1.2rem;
+      border-radius: 18px 10px 16px 12px;
+      border: 1px dashed #dcb6c9;
+    }
+    .cta-btn, .waitlist-link-btn {
+      margin-top: 1.5rem;
+      font-family: 'Shadows Into Light', cursive;
+      font-size: 1.3rem;
+      padding: 0.8em 2.2em;
+      background: linear-gradient(90deg, var(--blush), var(--sage));
+      color: #633a4c;
+      border: 2px solid #fdc5d6;
+      border-radius: 33px 20px 25px 16px;
+      cursor: pointer;
+      box-shadow: 0 2px 7px #b78aa755;
+      transition: background 0.18s, border 0.18s;
+      position: relative;
+      z-index: 1;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .cta-btn:hover, .waitlist-link-btn:hover {
+      background: linear-gradient(95deg, var(--lavender), var(--accent));
+      border: 2px solid #b78aa7;
+      color: #3e2536;
+    }
+    /* Quote Card */
+    .quote-card {
+      background: var(--vintage);
+      padding: 1.4em 1.2em 1.2em 1.2em;
+      border-radius: 18px 28px 20px 22px;
+      box-shadow: 0 2px 17px #a3a3a35a;
+      font-family: 'Shadows Into Light', cursive;
+      font-size: 1.07em;
+      margin: 2.5rem 0 2rem 0;
+      border: 1.5px solid #e5c7b2;
+      position: relative;
+      text-align: center;
+    }
+    .quote-card:before {
+      content: '';
+      position: absolute;
+      left: -10px; top: 8px;
+      width: 48px; height: 18px;
+      background: #ffd6e0bb;
+      border-radius: 9px 7px 5px 10px;
+      transform: rotate(-12deg);
+      z-index: 0;
+    }
+    h2 {
+      font-family: 'Indie Flower', cursive;
+      font-size: 2.1rem;
+      color: #b46674;
+      margin-bottom: 0.5em;
+      margin-top: 2.2em;
+      text-shadow: 0 1px 0 #fff5;
+      text-align: center;
+    }
+    .handwriting {
+      font-family: 'Shadows Into Light', cursive;
+      font-size: 1.13rem;
+      color: #6d4b5d;
+      background: #fff7f9e8;
+      border-radius: 15px 18px 18px 12px;
+      padding: 1.2em 1.2em 1.3em 1.3em;
+      border-left: 3.5px dotted #dcb6c9;
+      border-right: 2.5px dashed #d6aec8;
+      margin-bottom: 1.5em;
+      box-shadow: 0 1.5px 0 #f9b4d5;
+      position: relative;
+      text-align: center;
+    }
+    .stickers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6em;
+      font-size: 1.7em;
+      margin-bottom: 0.5em;
+      justify-content: center;
+    }
+    .waitlist-form {
+      margin: 2rem auto 0 auto;
+      max-width: 370px;
+      background: #fff7f9e8;
+      border-radius: 18px;
+      box-shadow: 0 1.5px 0 #f9b4d5;
+      border: 2px dashed #dcb6c9;
+      padding: 1.1em 1.2em 1.5em 1.2em;
+      position: relative;
+      text-align: center;
+    }
+    .waitlist-form label {
+      display: block;
+      font-family: 'Indie Flower', cursive;
+      font-size: 1.07rem;
+      margin-bottom: 0.5em;
+      color: #b46674;
+      text-align: center;
+    }
+    .waitlist-success {
+      font-family: 'Indie Flower', cursive;
+      color: #2d6a4f;
+      margin-top: 1.1em;
+      font-size: 1.11em;
+      text-align: center;
+    }
+    .waitlist-link-btn {
+      margin-top: 0.5rem;
+    }
+    .socials-section {
+      margin: 2.5em 0 1.2em 0;
+      text-align: center;
+    }
+    .socials-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.1em;
+      justify-content: center;
+      margin-top: 1em;
+    }
+    .social-note {
+      font-family: 'Shadows Into Light', cursive;
+      font-size: 1.07rem;
+      background: #fdf6e3;
+      color: #633a4c;
+      border-radius: 12px 18px 12px 18px;
+      padding: 0.4em 1em;
+      border: 1.5px dashed #dcb6c9;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      box-shadow: 0 1.5px 0 #d6aec8;
+      text-decoration: none;
+      margin-bottom: 0.6em;
+      transition: box-shadow 0.18s;
+    }
+    .social-note:hover {
+      box-shadow: 0 2.5px 12px #b78aa755;
+      background: #fff7faee;
+    }
+    .whisper {
+      margin: 3em auto 2em auto;
+      max-width: 440px;
+      background: repeating-linear-gradient(-4deg, #f8efe7, #fff7f9 40px);
+      border-radius: 12px 18px 12px 28px;
+      box-shadow: 0 1.5px 0 #f9b4d5;
+      border: 2px dashed #dcb6c9;
+      font-family: 'Shadows Into Light', cursive;
+      color: #b46674;
+      font-size: 1.15em;
+      padding: 2em 1.5em 1.2em 2.2em;
+      position: relative;
+      line-height: 1.5;
+      text-align: center;
+    }
+    .whisper:before {
+      content: '';
+      position: absolute;
+      left: -22px; top: 18px;
+      width: 80px; height: 28px;
+      background: #ffd6e0cc;
+      border-radius: 13px 17px 10px 15px;
+      transform: rotate(-8deg);
+      z-index: 0;
+    }
+    @media (max-width: 650px) {
+      .paper, .whisper, .waitlist-form { max-width: 95vw; }
+      .hero-bg { min-height: 180px; }
+      .scrap-title { font-size: 2rem; padding: 0.4rem 0.6rem; }
+      .scrap-subtitle { font-size: 1rem; padding: 0.2rem 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <div class="paper hero-bg" style="max-width:630px; margin-top:2.5rem;">
+    <div class="washi"></div>
+    <div class="floating-icons">
+      <span class="icon1">🌸</span>
+      <span class="icon2">⭐️</span>
+      <span class="icon3">💖</span>
+      <span class="icon4">✉️</span>
+      <span class="icon5">🌼</span>
+      <span class="icon6">💫</span>
+    </div>
+    <div style="text-align:center; position:relative; z-index:1;">
+      <div class="scrap-title">✉️ JoyfulSoul Mail</div>
+      <div style="margin-bottom:0.9em;"></div>
+      <div class="scrap-subtitle">A year of snail mail for your soul</div>
+      <br>
+      <a class="cta-btn" href="https://forms.gle/orFhb9TKLPhXpNrY8" target="_blank" rel="noopener">Join the Waitlist</a>
+    </div>
+  </div>
+
+  <!-- What is JoyfulSoul Mail? -->
+  <div class="paper" style="margin-top: 1.2rem;">
+    <div class="floating-icons">
+      <span class="icon1">💌</span>
+      <span class="icon2">🌷</span>
+      <span class="icon3">⭐️</span>
+      <span class="icon4">✏️</span>
+      <span class="icon5">🌸</span>
+      <span class="icon6">💫</span>
+    </div>
+    <h2>What is JoyfulSoul Mail?</h2>
+    <div class="handwriting">
+      It’s a <b>12-month journey</b> delivered to your doorstep.<br>
+      Every month you’ll open a hand-curated envelope filled with whimsical art, heartfelt letters, and tactile rituals.
+    </div>
+    <div class="stickers" style="margin-top:0.3em;">
+      💌 🌷 💫 🌼 ✏️
+    </div>
+  </div>
+
+  <!-- Why Snail Mail? -->
+  <div class="paper" style="background: var(--vintage); border:2px dashed #fdc5d6;">
+    <div class="floating-icons">
+      <span class="icon1">💟</span>
+      <span class="icon2">📮</span>
+      <span class="icon3">⭐️</span>
+      <span class="icon4">🌱</span>
+      <span class="icon5">🌼</span>
+      <span class="icon6">💫</span>
+    </div>
+    <div class="quote-card" style="background: #f6ede7; border: 1.5px solid #d6aec8;">
+      ‘Because your soul deserves something slower.<br>
+      Because beauty should arrive in your <b>mailbox</b>, not your inbox.’
+    </div>
+  </div>
+
+  <!-- The Journey Begins -->
+  <div class="paper">
+    <div class="floating-icons">
+      <span class="icon1">🦄</span>
+      <span class="icon2">🌙</span>
+      <span class="icon3">⭐️</span>
+      <span class="icon4">💌</span>
+      <span class="icon5">🌸</span>
+      <span class="icon6">💫</span>
+    </div>
+    <h2>🌙 The First Envelope</h2>
+    <div class="handwriting">
+      JoyfulSoul Mail begins in <b>January 2026</b>.<br>
+      <span style="background: #fdc5d6a5; border-radius:8px; padding:0.1em 0.4em;">Only those on the waitlist</span> will be guaranteed their envelopes.
+    </div>
+    <div style="text-align:center;">
+      <a class="cta-btn" href="https://forms.gle/orFhb9TKLPhXpNrY8" target="_blank" rel="noopener">Join the Waitlist</a>
+    </div>
+  </div>
+
+  <!-- Join the Waitlist -->
+  <div id="waitlist" class="paper" style="background: #fff7f9e8;">
+    <div class="floating-icons">
+      <span class="icon1">⭐️</span>
+      <span class="icon2">🌸</span>
+      <span class="icon3">💌</span>
+      <span class="icon4">🌼</span>
+      <span class="icon5">✉️</span>
+      <span class="icon6">💫</span>
+    </div>
+    <h2 style="margin-bottom:0.7em;">Join the Waitlist</h2>
+    <div class="handwriting">
+      Be the first to receive the January 2026 envelope.<br>
+      <b>Spaces are limited.</b>
+    </div>
+    <div class="stickers" style="margin-bottom: 1.2em;">
+      ⭐️ 🌸 💌 🌼 ✉️
+    </div>
+    <a class="waitlist-link-btn cta-btn" href="https://forms.gle/orFhb9TKLPhXpNrY8" target="_blank" rel="noopener">Get on the List</a>
+    <div style="text-align:center; margin-top:1em; opacity:0.7; font-size:0.93em;">
+      (Your info is only used for JoyfulSoul Mail updates)
+    </div>
+  </div>
+
+  <!-- Socials -->
+  <div class="paper socials-section">
+    <div class="floating-icons">
+      <span class="icon1">🌷</span>
+      <span class="icon2">⭐️</span>
+      <span class="icon3">💫</span>
+      <span class="icon4">🌸</span>
+      <span class="icon5">💖</span>
+      <span class="icon6">✉️</span>
+    </div>
+    <h2 style="margin-bottom:0.5em;">🌷 Follow the Journey</h2>
+    <div class="socials-list">
+      <a class="social-note" href="https://tiktok.com/@yuar.tr" target="_blank" rel="noopener">📽️ TikTok: @yuar.tr</a>
+      <a class="social-note" href="https://tiktok.com/@joysdesigns" target="_blank" rel="noopener">📽️ TikTok: @joysdesigns</a>
+      <a class="social-note" href="https://instagram.com/ioanar.tr" target="_blank" rel="noopener">📸 Instagram: @ioanar.tr</a>
+      <a class="social-note" href="https://instagram.com/joy_das28" target="_blank" rel="noopener">📸 Instagram: @joy_das28</a>
+    </div>
+  </div>
+
+  <!-- Closing Whisper -->
+  <div class="whisper">
+    <span style="font-size:1.9em;">🕊️</span><br>
+    One day you’ll look back and say: <br>
+    <i>“I remember when the first JoyfulSoul Mail arrived, and everything shifted just a little brighter.”</i>
+  </div>
+</body>
+</html>
+```
+
+You can now copy, use, and deploy this as is!  
+If you ever want to bring the email form back (or embed the Google Form directly), just ask.
